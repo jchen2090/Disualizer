@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Die from "../components/Die";
 import { useNavigate } from "react-router-dom";
 import { useDashboardContext } from "../hooks/useDashboardContext";
@@ -6,7 +6,6 @@ import { generateNumber } from "../utils";
 
 export default function Home() {
   const [diceDisplay, setDiceDisplay] = useState([generateNumber()]);
-  const previousNumber = useRef(0);
   const navigate = useNavigate();
   const { setIsLoading, setDiceAmount, rollDice, rollAmount, setRollAmount } = useDashboardContext();
 
@@ -33,25 +32,6 @@ export default function Home() {
   const decreaseRoll = () => {
     setRollAmount((prev) => --prev);
   };
-
-  // const handleClick = () => {
-  //   setInterval(() => {
-  //     let num;
-  //     /**
-  //      * This is so the same dice face cannot be rendered again
-  //      * This will be used for a loading screen however shouldn't be used
-  //      * when sampling data to ensure accuracy
-  //      */
-  //     do {
-  //       num = generateNumber();
-  //       setRoll(num);
-
-  //       //TODO: delete this, only used for local testing
-  //       console.log(num);
-  //     } while (num === previousNumber.current);
-  //     previousNumber.current = num;
-  //   }, 250);
-  // };
 
   return (
     <main className="flex flex-col items-center justify-center gap-6">
