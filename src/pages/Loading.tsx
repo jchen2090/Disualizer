@@ -44,18 +44,16 @@ export default function Loading() {
     };
   }, [diceAmount, loadingMsg]);
 
-  console.log(diceDisplay);
-
   return (
-    <html className="flex flex-col h-screen">
-      <main className="flex flex-col items-center justify-center mt-52">
+    <div className="flex flex-col h-screen">
+      <div className="flex flex-col items-center justify-center mt-52">
         <div className="flex gap-2">
-          {diceDisplay.map((die) => (
-            <Die number={die} />
+          {diceDisplay.map((die, idx) => (
+            <Die number={die} key={idx} />
           ))}
         </div>
         <p className="mt-6 text-xl">{loadingMsg}</p>
-      </main>
-    </html>
+      </div>
+    </div>
   );
 }
