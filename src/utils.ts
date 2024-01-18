@@ -3,7 +3,7 @@ export type formattedData = {
   median: number;
   min: number;
   max: number;
-  mode: string;
+  mode: number[];
   frequencies: { [key: number]: number };
 };
 
@@ -40,18 +40,27 @@ const getFrequencies = (data: Array<number>) => {
   return count;
 };
 
+/**
+ * If there is no single mode (i,e [1, 2, 3]) where all rolls occur once
+ * Then we should return [1, 2, 3]
+ */
 const getMode = (data: Array<number>) => {
   const frequency = getFrequencies(data);
   let highestCount: number = 0;
-  let mostRolledNumber!: string;
+  let mode: number[] = [];
 
-  Object.entries(frequency).forEach(([number, count]) => {
-    if (count > highestCount) {
-      mostRolledNumber = number;
+  Object.entries(frequency).forEach(([rollNumber, count]) => {
+    const number = parseInt(rollNumber);
+
+    if (count === highestCount) {
+      mode.push(number);
+    } else if (count > highestCount) {
+      mode = [];
+      mode.push(number);
       highestCount = count;
     }
   });
-  return mostRolledNumber;
+  return mode;
 };
 
 export const formatData = (data: Array<number>): formattedData => {
