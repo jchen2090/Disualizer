@@ -4,6 +4,7 @@ export type formattedData = {
   min: number;
   max: number;
   mode: string;
+  frequencies: { [key: number]: number };
 };
 
 export const generateNumber = () => {
@@ -26,7 +27,7 @@ const getMinMax = (data: Array<number>) => {
   return [sorted.at(0) || 0, sorted.at(-1) || 0];
 };
 
-const getMode = (data: Array<number>) => {
+const getFrequencies = (data: Array<number>) => {
   const count: { [key: number]: number } = {};
 
   data.forEach((num) => {
@@ -36,11 +37,15 @@ const getMode = (data: Array<number>) => {
       count[num]++;
     }
   });
+  return count;
+};
 
+const getMode = (data: Array<number>) => {
+  const frequency = getFrequencies(data);
   let highestCount: number = 0;
   let mostRolledNumber!: string;
 
-  Object.entries(count).forEach(([number, count]) => {
+  Object.entries(frequency).forEach(([number, count]) => {
     if (count > highestCount) {
       mostRolledNumber = number;
       highestCount = count;
@@ -52,12 +57,12 @@ const getMode = (data: Array<number>) => {
 export const formatData = (data: Array<number>): formattedData => {
   const [min, max] = getMinMax(data);
 
-  getMode(data);
   return {
     mean: getMean(data),
     median: getMedian(data),
     min: min,
     max: max,
     mode: getMode(data),
+    frequencies: getFrequencies(data),
   };
 };
