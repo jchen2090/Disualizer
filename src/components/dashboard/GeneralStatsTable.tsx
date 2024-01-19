@@ -3,7 +3,7 @@ import { useStats } from "../../hooks/useStats";
 
 export default function DiceStatsTable() {
   const { rawData } = useDashboardContext();
-  const { getMinMax, getMean, getMedian, getMode } = useStats();
+  const { getMinMax, getMean, getMedian, getMode, getFirstQuartile, getThirdQuartile } = useStats();
 
   const formattedData = {
     min: getMinMax(rawData)[0],
@@ -11,6 +11,9 @@ export default function DiceStatsTable() {
     median: getMedian(rawData),
     mode: getMode(rawData),
     max: getMinMax(rawData)[1],
+    firstQuartile: getFirstQuartile(rawData),
+    thirdQuartile: getThirdQuartile(rawData),
+    range: getMinMax(rawData)[1] - getMinMax(rawData)[0],
   };
 
   return (
@@ -36,8 +39,16 @@ export default function DiceStatsTable() {
           <td className="p-2 text-center border-b">{formattedData.mean}</td>
         </tr>
         <tr>
+          <th className="p-2 border-b border-r">1st Quartile</th>
+          <td className="p-2 text-center border-b">{formattedData.firstQuartile}</td>
+        </tr>
+        <tr>
           <th className="p-2 border-b border-r">Median</th>
           <td className="p-2 text-center border-b">{formattedData.median}</td>
+        </tr>
+        <tr>
+          <th className="p-2 border-b border-r">3rd Quartile</th>
+          <td className="p-2 text-center border-b">{formattedData.thirdQuartile}</td>
         </tr>
         <tr>
           <th className="p-2 border-b border-r">Mode</th>
@@ -46,6 +57,10 @@ export default function DiceStatsTable() {
         <tr>
           <th className="p-2 border-b border-r">Maximum</th>
           <td className="p-2 text-center border-b">{formattedData.max}</td>
+        </tr>
+        <tr>
+          <th className="p-2 border-b border-r">Range</th>
+          <td className="p-2 text-center border-b">{formattedData.range}</td>
         </tr>
       </tbody>
     </table>

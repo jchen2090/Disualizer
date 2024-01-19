@@ -5,8 +5,10 @@ import "chart.js/auto";
 
 export default function GeneralStatsChart() {
   const { rawData } = useDashboardContext();
-  const { getMedian } = useStats();
+  const { getMedian, getFirstQuartile, getThirdQuartile } = useStats();
   const median = getMedian(rawData);
+  const firstQuartile = getFirstQuartile(rawData);
+  const thirdQuartile = getThirdQuartile(rawData);
 
   return (
     <Line
@@ -14,12 +16,27 @@ export default function GeneralStatsChart() {
         labels: rawData.map((data) => data.id + 1),
         datasets: [
           {
+            type: "line",
             label: "Roll",
             data: rawData.map((data) => data.roll),
           },
           {
             label: "Median",
             data: rawData.map(() => median),
+            borderDash: [5, 5],
+            pointRadius: 0,
+          },
+          {
+            label: "1st Quartile",
+            data: rawData.map(() => firstQuartile),
+            borderDash: [5, 5],
+            pointRadius: 0,
+          },
+          {
+            label: "3rd Quartile",
+            data: rawData.map(() => thirdQuartile),
+            borderDash: [5, 5],
+            pointRadius: 0,
           },
         ],
       }}
@@ -62,7 +79,7 @@ export default function GeneralStatsChart() {
             },
           },
           legend: {
-            display: false,
+            position: "bottom",
           },
         },
       }}
