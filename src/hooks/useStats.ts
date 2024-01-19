@@ -33,6 +33,28 @@ const getFrequencies = (rollData: Array<Roll>) => {
   return count;
 };
 
+const getFirstQuartile = (rollData: Array<Roll>) => {
+  const data = rollData.map((rolls) => rolls.roll);
+  const sorted = data.sort((a, b) => a - b);
+  const half = Math.floor(sorted.length / 2);
+  const firstHalf = sorted.slice(0, half);
+  const quarter = Math.floor(firstHalf.length / 2);
+
+  return firstHalf.length % 2 === 1 ? firstHalf[quarter] : (firstHalf[quarter - 1] + firstHalf[quarter]) / 2;
+};
+
+const getThirdQuartile = (rollData: Array<Roll>) => {
+  const data = rollData.map((rolls) => rolls.roll);
+  const sorted = data.sort((a, b) => a - b);
+  const half = Math.floor(sorted.length / 2);
+  const secondHalf = sorted.length % 2 === 1 ? sorted.slice(half + 1) : sorted.slice(half);
+  const threeQuarter = Math.floor(secondHalf.length / 2);
+
+  return secondHalf.length % 2 === 1
+    ? secondHalf[threeQuarter]
+    : (secondHalf[threeQuarter - 1] + secondHalf[threeQuarter]) / 2;
+};
+
 /**
  * If there is no single mode (i,e [1, 2, 3]) where all rolls occur once
  * Then we should return [1, 2, 3]
@@ -63,5 +85,7 @@ export const useStats = () => {
     getMinMax,
     getFrequencies,
     getMode,
+    getFirstQuartile,
+    getThirdQuartile,
   };
 };
