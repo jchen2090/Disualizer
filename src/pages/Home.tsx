@@ -3,11 +3,12 @@ import Die from "../components/Die";
 import { useNavigate } from "react-router-dom";
 import { useDashboardContext } from "../hooks/useDashboardContext";
 import { generateNumber } from "../utils";
+import { Roll } from "../context/DashboardContext";
 
 export default function Home() {
   const [diceDisplay, setDiceDisplay] = useState([generateNumber()]);
   const navigate = useNavigate();
-  const { setIsLoading, setDiceAmount, setRollAmount, setData, rollAmount, diceAmount } = useDashboardContext();
+  const { setIsLoading, setDiceAmount, setRollAmount, setRawData, rollAmount, diceAmount } = useDashboardContext();
 
   const rollDice = () => {
     for (let i = 0; i < rollAmount; i++) {
@@ -16,7 +17,12 @@ export default function Home() {
         temp.push(generateNumber());
       }
       const sum = temp.reduce((acc, current) => acc + current);
-      setData((prev) => [...prev, sum]);
+      const payload: Roll = {
+        id: i,
+        roll: sum,
+        dice: temp,
+      };
+      setRawData((prev) => [...prev, payload]);
     }
   };
 
@@ -47,7 +53,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center gap-6">
       <h1 className="mt-20 text-3xl text-center">Dice Visualizer</h1>
-      <div className="flex gap-3">
+      <div className="grid grid-cols-8 gap-2">
         {diceDisplay.map((roll, idx) => (
           <Die number={roll} key={idx} />
         ))}

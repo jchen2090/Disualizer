@@ -1,6 +1,18 @@
-import { tableProps } from "./types";
+import { useDashboardContext } from "../../hooks/useDashboardContext";
+import { useStats } from "../../hooks/useStats";
 
-export default function DiceStatsTable({ data }: tableProps) {
+export default function DiceStatsTable() {
+  const { rawData } = useDashboardContext();
+  const { getMinMax, getMean, getMedian, getMode } = useStats();
+
+  const formattedData = {
+    min: getMinMax(rawData)[0],
+    mean: getMean(rawData),
+    median: getMedian(rawData),
+    mode: getMode(rawData),
+    max: getMinMax(rawData)[1],
+  };
+
   return (
     <table className="border table-fixed w-72">
       <thead>
@@ -17,23 +29,23 @@ export default function DiceStatsTable({ data }: tableProps) {
       <tbody>
         <tr>
           <th className="p-2 border-b border-r">Minimum</th>
-          <td className="p-2 text-center border-b">{data.min}</td>
+          <td className="p-2 text-center border-b">{formattedData.min}</td>
         </tr>
         <tr>
           <th className="p-2 border-b border-r">Mean</th>
-          <td className="p-2 text-center border-b">{data.mean}</td>
+          <td className="p-2 text-center border-b">{formattedData.mean}</td>
         </tr>
         <tr>
           <th className="p-2 border-b border-r">Median</th>
-          <td className="p-2 text-center border-b">{data.median}</td>
+          <td className="p-2 text-center border-b">{formattedData.median}</td>
         </tr>
         <tr>
           <th className="p-2 border-b border-r">Mode</th>
-          <td className="p-2 text-center border-b">{data.mode.join(", ")}</td>
+          <td className="p-2 text-center border-b">{formattedData.mode.join(", ")}</td>
         </tr>
         <tr>
           <th className="p-2 border-b border-r">Maximum</th>
-          <td className="p-2 text-center border-b">{data.max}</td>
+          <td className="p-2 text-center border-b">{formattedData.max}</td>
         </tr>
       </tbody>
     </table>

@@ -6,28 +6,34 @@ type contextProps = {
 
 type contextDefaultValues = {
   isLoading: boolean;
-  data: Array<number>;
+  rawData: Array<Roll>;
   rollAmount: number;
   diceAmount: number;
-  setData: Dispatch<SetStateAction<Array<number>>>;
+  setRawData: Dispatch<SetStateAction<Array<Roll>>>;
   setRollAmount: Dispatch<SetStateAction<number>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setDiceAmount: Dispatch<SetStateAction<number>>;
 };
 
+export type Roll = {
+  id: number;
+  roll: number;
+  dice: Array<number>;
+};
+
 export const DashboardContext = createContext<contextDefaultValues | null>(null);
 export default function DashboardContextProvider({ children }: contextProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<Array<number>>([]);
+  const [rawData, setRawData] = useState<Array<Roll>>([]);
   const [diceAmount, setDiceAmount] = useState(1);
   const [rollAmount, setRollAmount] = useState(1);
 
   const globalFunctions = {
     isLoading,
-    data,
+    rawData,
     rollAmount,
     diceAmount,
-    setData,
+    setRawData,
     setDiceAmount,
     setIsLoading,
     setRollAmount,

@@ -1,25 +1,25 @@
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { useDashboardContext } from "../../hooks/useDashboardContext";
 import { useStats } from "../../hooks/useStats";
 import "chart.js/auto";
 
-export default function FrequencyChart() {
-  const { diceAmount, rawData } = useDashboardContext();
-  const { getFrequencies } = useStats();
-  const frequencies = getFrequencies(rawData);
-  const smallestRoll = diceAmount;
-  const largestRoll = diceAmount * 6;
-  const allRolls = Array.from({ length: largestRoll - smallestRoll + 1 }, (_, i) => i + smallestRoll);
+export default function GeneralStatsChart() {
+  const { rawData } = useDashboardContext();
+  const { getMedian } = useStats();
+  const median = getMedian(rawData);
 
   return (
-    <Bar
+    <Line
       data={{
-        labels: allRolls,
+        labels: rawData.map((data) => data.id + 1),
         datasets: [
           {
-            label: "Amount Rolled",
-            data: allRolls.map((roll) => frequencies[roll] || 0),
-            backgroundColor: "#3b82f6",
+            label: "Roll",
+            data: rawData.map((data) => data.roll),
+          },
+          {
+            label: "Median",
+            data: rawData.map(() => median),
           },
         ],
       }}
@@ -31,18 +31,17 @@ export default function FrequencyChart() {
             },
             title: {
               display: true,
-              text: "Frequency",
+              text: "Result",
               color: "black",
               font: {
                 size: 14,
               },
             },
-            beginAtZero: true,
           },
           x: {
             title: {
               display: true,
-              text: "Roll Result",
+              text: "Roll",
               color: "black",
               font: {
                 size: 14,
@@ -57,7 +56,7 @@ export default function FrequencyChart() {
             },
             color: "black",
             display: true,
-            text: "Frequency Chart",
+            text: "General Stats Chart",
             padding: {
               bottom: 4,
             },
@@ -66,8 +65,6 @@ export default function FrequencyChart() {
             display: false,
           },
         },
-        maintainAspectRatio: false,
-        responsive: true,
       }}
     />
   );

@@ -1,8 +1,10 @@
 import { useDashboardContext } from "../../hooks/useDashboardContext";
-import { tableProps } from "./types";
+import { useStats } from "../../hooks/useStats";
 
-export default function FrequencyTable({ data }: tableProps) {
-  const { diceAmount } = useDashboardContext();
+export default function FrequencyTable() {
+  const { diceAmount, rawData } = useDashboardContext();
+  const { getFrequencies } = useStats();
+  const frequencyData = getFrequencies(rawData);
   const smallestRoll = diceAmount;
   const largestRoll = diceAmount * 6;
   const allRolls = Array.from({ length: largestRoll - smallestRoll + 1 }, (_, i) => i + smallestRoll);
@@ -24,7 +26,7 @@ export default function FrequencyTable({ data }: tableProps) {
         {allRolls.map((roll, idx) => (
           <tr key={idx}>
             <th className="p-2 font-bold border-b border-r">{roll}</th>
-            <td className="p-2 text-center border-b">{data.frequencies[roll] || 0}</td>
+            <td className="p-2 text-center border-b">{frequencyData[roll] || 0}</td>
           </tr>
         ))}
       </tbody>

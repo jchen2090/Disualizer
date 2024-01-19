@@ -47,7 +47,7 @@ export default function Loading() {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex flex-col items-center justify-center mt-52">
-        <div className="flex gap-2">
+        <div className="grid grid-cols-8 gap-2">
           {diceDisplay.map((die, idx) => (
             <Die number={die} key={idx} />
           ))}
