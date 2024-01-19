@@ -3,11 +3,12 @@ import Die from "../components/Die";
 import { useNavigate } from "react-router-dom";
 import { useDashboardContext } from "../hooks/useDashboardContext";
 import { generateNumber } from "../utils";
+import { Roll } from "../context/DashboardContext";
 
 export default function Home() {
   const [diceDisplay, setDiceDisplay] = useState([generateNumber()]);
   const navigate = useNavigate();
-  const { setIsLoading, setDiceAmount, setRollAmount, setData, rollAmount, diceAmount } = useDashboardContext();
+  const { setIsLoading, setDiceAmount, setRollAmount, setRawData, rollAmount, diceAmount } = useDashboardContext();
 
   const rollDice = () => {
     for (let i = 0; i < rollAmount; i++) {
@@ -16,7 +17,12 @@ export default function Home() {
         temp.push(generateNumber());
       }
       const sum = temp.reduce((acc, current) => acc + current);
-      setData((prev) => [...prev, sum]);
+      const payload: Roll = {
+        id: i,
+        roll: sum,
+        dice: temp,
+      };
+      setRawData((prev) => [...prev, payload]);
     }
   };
 
