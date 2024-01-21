@@ -5,7 +5,8 @@ import "chart.js/auto";
 
 export default function GeneralStatsChart() {
   const { rawData } = useDashboardContext();
-  const { getMedian, getFirstQuartile, getThirdQuartile } = useStats();
+  const { getMedian, getFirstQuartile, getThirdQuartile, getMinMax } = useStats();
+  const { max } = getMinMax(rawData);
   const median = getMedian(rawData);
   const firstQuartile = getFirstQuartile(rawData);
   const thirdQuartile = getThirdQuartile(rawData);
@@ -54,6 +55,7 @@ export default function GeneralStatsChart() {
                 size: 14,
               },
             },
+            max: max + 1,
           },
           x: {
             title: {
@@ -82,6 +84,8 @@ export default function GeneralStatsChart() {
             position: "bottom",
           },
         },
+        maintainAspectRatio: false,
+        responsive: true,
       }}
     />
   );

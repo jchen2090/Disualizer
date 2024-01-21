@@ -16,7 +16,7 @@ const getMedian = (rollData: Array<Roll>) => {
 const getMinMax = (rollData: Array<Roll>) => {
   const data = rollData.map((rolls) => rolls.roll);
   const sorted = data.sort((a, b) => a - b);
-  return [sorted.at(0) || 0, sorted.at(-1) || 0];
+  return { min: sorted.at(0) || 0, max: sorted.at(-1) || 0 };
 };
 
 const getFrequencies = (rollData: Array<Roll>) => {
