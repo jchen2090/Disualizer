@@ -4,16 +4,17 @@ import { useStats } from "../../hooks/useStats";
 export default function DiceStatsTable() {
   const { rawData } = useDashboardContext();
   const { getMinMax, getMean, getMedian, getMode, getFirstQuartile, getThirdQuartile } = useStats();
+  const { min, max } = getMinMax(rawData);
 
   const formattedData = {
-    min: getMinMax(rawData)[0],
+    min: min,
     mean: getMean(rawData),
     median: getMedian(rawData),
     mode: getMode(rawData),
-    max: getMinMax(rawData)[1],
+    max: max,
     firstQuartile: getFirstQuartile(rawData),
     thirdQuartile: getThirdQuartile(rawData),
-    range: getMinMax(rawData)[1] - getMinMax(rawData)[0],
+    range: max - min,
   };
 
   return (

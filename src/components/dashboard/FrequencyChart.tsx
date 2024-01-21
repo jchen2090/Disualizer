@@ -37,6 +37,8 @@ export default function FrequencyChart() {
                 size: 14,
               },
             },
+            //TODO: Make this more scalable
+            suggestedMax: 10,
             beginAtZero: true,
           },
           x: {

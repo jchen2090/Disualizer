@@ -21,8 +21,8 @@ export default function Dashboard() {
     <div className="flex flex-col h-screen p-12 max-w-screen">
       <div className="flex mt-12 justify-evenly">
         <div className="w-3/5 h-96">
-          <FrequencyChart />
           <GeneralStatsChart />
+          <FrequencyChart />
         </div>
         <div className="flex flex-col gap-6">
           <DiceStatsTable />

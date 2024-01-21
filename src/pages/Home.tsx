@@ -53,7 +53,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center gap-6">
       <h1 className="mt-20 text-3xl text-center">Dice Visualizer</h1>
-      <div className="grid grid-cols-8 gap-2">
+      <div className="flex gap-2">
         {diceDisplay.map((roll, idx) => (
           <Die number={roll} key={idx} />
         ))}
