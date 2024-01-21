@@ -52,32 +52,49 @@ export default function Home() {
 
   return (
     <main className="flex flex-col items-center justify-center gap-6">
-      <h1 className="mt-20 text-3xl text-center">Dice Visualizer</h1>
+      <h1 className="mt-20 text-3xl text-center dark:text-white">Dice Visualizer</h1>
       <div className="flex gap-2">
         {diceDisplay.map((roll, idx) => (
           <Die number={roll} key={idx} />
         ))}
       </div>
-      <button onClick={reRoll} className="h-10 px-4 py-2 text-white rounded-md bg-slate-800 hover:bg-slate-800/90">
+      <button
+        onClick={reRoll}
+        className="h-10 px-4 py-2 text-white rounded-md bg-neutral-900 hover:bg-neutral-900/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+      >
         Roll Dice
       </button>
       <div className="flex flex-col gap-2">
-        <h2 className="text-center text-md">Config</h2>
+        <h2 className="text-center text-md dark:text-white">Config</h2>
         <div>
-          <label className="mb-2 text-sm text-center">Dice Amount</label>
+          <label className="mb-2 text-sm text-center dark:text-white">Dice Amount</label>
           <div>
-            <button onClick={decreaseDie}>-</button>
+            <button className="px-2 dark:text-white" onClick={decreaseDie}>
+              -
+            </button>
             {/* TODO: Let user type in die amount: 1 <= N <= 100 */}
-            <input className="text-center" value={diceDisplay.length} />
-            <button onClick={increaseDie}>+</button>
+            <input
+              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-0 dark:text-white"
+              value={diceDisplay.length}
+            />
+            <button className="px-2 dark:text-white" onClick={increaseDie}>
+              +
+            </button>
           </div>
         </div>
         <div>
-          <label className="mb-2 text-sm">Roll Amount</label>
+          <label className="mb-2 text-sm dark:text-white">Roll Amount</label>
           <div>
-            <button onClick={decreaseRoll}>-</button>
-            <input className="text-center" value={rollAmount} />
-            <button onClick={increaseRoll}>+</button>
+            <button className="px-2 dark:text-white" onClick={decreaseRoll}>
+              -
+            </button>
+            <input
+              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-0 dark:text-white"
+              value={rollAmount}
+            />
+            <button className="px-2 dark:text-white" onClick={increaseRoll}>
+              +
+            </button>
           </div>
         </div>
       </div>

@@ -18,9 +18,9 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="flex flex-col h-screen p-12 max-w-screen">
-      <div className="flex mt-12 justify-evenly">
-        <div className="w-3/5 h-96">
+    <div className="flex flex-col max-h-screen p-6 max-w-screen">
+      <div className="flex mt-8 justify-evenly">
+        <div className="flex flex-col w-3/5 gap-6 h-96">
           <GeneralStatsChart />
           <FrequencyChart />
         </div>

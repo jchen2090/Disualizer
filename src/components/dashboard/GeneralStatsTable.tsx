@@ -18,50 +18,56 @@ export default function DiceStatsTable() {
   };
 
   return (
-    <table className="border table-fixed w-72">
+    <table className="border table-fixed dark:border-neutral-600 w-72">
       <thead>
         <tr>
-          <th className="p-2 font-bold border-b" colSpan={2}>
+          <th className="p-2 font-bold border-b dark:border-neutral-600 dark:text-white" colSpan={2}>
             General Stats
           </th>
         </tr>
         <tr>
-          <th className="p-2 font-bold border-b border-r">Name</th>
-          <th className="p-2 font-bold border-b">Value</th>
+          <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">Name</th>
+          <th className="p-2 font-bold border-b dark:border-neutral-600 dark:text-white">Value</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th className="p-2 border-b border-r">Minimum</th>
-          <td className="p-2 text-center border-b">{formattedData.min}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Minimum</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">{formattedData.min}</td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">Mean</th>
-          <td className="p-2 text-center border-b">{formattedData.mean}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Mean</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">{formattedData.mean}</td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">1st Quartile</th>
-          <td className="p-2 text-center border-b">{formattedData.firstQuartile}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">1st Quartile</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
+            {formattedData.firstQuartile}
+          </td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">Median</th>
-          <td className="p-2 text-center border-b">{formattedData.median}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Median</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">{formattedData.median}</td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">3rd Quartile</th>
-          <td className="p-2 text-center border-b">{formattedData.thirdQuartile}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">3rd Quartile</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
+            {formattedData.thirdQuartile}
+          </td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">Mode</th>
-          <td className="p-2 text-center border-b">{formattedData.mode.join(", ")}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Mode</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
+            {formattedData.mode.join(", ")}
+          </td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">Maximum</th>
-          <td className="p-2 text-center border-b">{formattedData.max}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Maximum</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">{formattedData.max}</td>
         </tr>
         <tr>
-          <th className="p-2 border-b border-r">Range</th>
-          <td className="p-2 text-center border-b">{formattedData.range}</td>
+          <th className="p-2 border-b border-r dark:border-neutral-600 dark:text-white">Range</th>
+          <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">{formattedData.range}</td>
         </tr>
       </tbody>
     </table>
