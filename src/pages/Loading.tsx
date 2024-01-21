@@ -52,7 +52,7 @@ export default function Loading() {
             <Die number={die} key={idx} />
           ))}
         </div>
-        <p className="mt-6 text-xl">{loadingMsg}</p>
+        <p className="mt-6 text-xl dark:text-white">{loadingMsg}</p>
       </div>
     </div>
   );

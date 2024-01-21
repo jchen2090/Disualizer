@@ -2,9 +2,11 @@ import { Bar } from "react-chartjs-2";
 import { useDashboardContext } from "../../hooks/useDashboardContext";
 import { useStats } from "../../hooks/useStats";
 import "chart.js/auto";
+import { useThemeContext } from "../../hooks/useThemeContext";
 
 export default function FrequencyChart() {
   const { diceAmount, rawData } = useDashboardContext();
+  const { theme } = useThemeContext();
   const { getFrequencies } = useStats();
   const frequencies = getFrequencies(rawData);
   const smallestRoll = diceAmount;
@@ -19,7 +21,7 @@ export default function FrequencyChart() {
           {
             label: "Amount Rolled",
             data: allRolls.map((roll) => frequencies[roll] || 0),
-            backgroundColor: "#3b82f6",
+            backgroundColor: theme === "light" ? "#2563eb" : "#3b82f6",
           },
         ],
       }}
@@ -32,7 +34,7 @@ export default function FrequencyChart() {
             title: {
               display: true,
               text: "Frequency",
-              color: "black",
+              color: theme === "light" ? "black" : "white",
               font: {
                 size: 14,
               },
@@ -40,15 +42,21 @@ export default function FrequencyChart() {
             //TODO: Make this more scalable
             suggestedMax: 10,
             beginAtZero: true,
+            grid: {
+              color: theme === "light" ? "#E5E5E5" : "#282828",
+            },
           },
           x: {
             title: {
               display: true,
               text: "Roll Result",
-              color: "black",
+              color: theme === "light" ? "black" : "white",
               font: {
                 size: 14,
               },
+            },
+            grid: {
+              color: theme === "light" ? "#E5E5E5" : "#282828",
             },
           },
         },
@@ -57,7 +65,7 @@ export default function FrequencyChart() {
             font: {
               size: 20,
             },
-            color: "black",
+            color: theme === "light" ? "black" : "white",
             display: true,
             text: "Frequency Chart",
             padding: {
