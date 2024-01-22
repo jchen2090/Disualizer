@@ -13,24 +13,28 @@ export default function FrequencyTable() {
     <table className="border dark:border-neutral-600 w-72">
       <thead>
         <tr>
-          <th className="p-2 font-bold border-b dark:border-neutral-600 dark:text-white" colSpan={2}>
+          <th className="p-2 font-bold border-b dark:border-neutral-600 dark:text-white" colSpan={allRolls.length + 1}>
             Frequencies
           </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">Number</th>
-          <th className="p-2 font-bold border-b dark:border-neutral-600 dark:text-white">Frequency</th>
+          <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">Rolls</th>
+          {allRolls.map((roll, idx) => (
+            <th key={idx} className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">
+              {roll}
+            </th>
+          ))}
         </tr>
-        {allRolls.map((roll, idx) => (
-          <tr key={idx}>
-            <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">{roll}</th>
-            <td className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
+        <tr>
+          <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">Frequency</th>
+          {allRolls.map((roll, idx) => (
+            <td key={idx} className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
               {frequencyData[roll] || 0}
             </td>
-          </tr>
-        ))}
+          ))}
+        </tr>
       </tbody>
     </table>
   );

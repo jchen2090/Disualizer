@@ -11,10 +11,10 @@ type formSchema = {
 };
 
 export default function Home() {
-  const [diceDisplay, setDiceDisplay] = useState([generateNumber()]);
-  const [forms, setForms] = useState<formSchema>({ dice: 1, rolls: 1 });
-  const navigate = useNavigate();
   const { setIsLoading, setDiceAmount, setRollAmount, setRawData, rollAmount, diceAmount } = useDashboardContext();
+  const [diceDisplay, setDiceDisplay] = useState<number[]>([]);
+  const [forms, setForms] = useState<formSchema>({ dice: diceAmount, rolls: rollAmount });
+  const navigate = useNavigate();
 
   /**
    * Changes the amount of dice shown depending on the config
@@ -139,10 +139,9 @@ export default function Home() {
             <button className="px-2 dark:text-white" onClick={decreaseDie}>
               -
             </button>
-            {/* TODO: Let user type in die amount: 1 <= N <= 100 */}
             <input
               name="dice"
-              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-0 dark:text-white"
+              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-transparent dark:text-white"
               value={forms.dice}
               onChange={handleOnChange}
             />
@@ -159,7 +158,7 @@ export default function Home() {
             </button>
             <input
               name="rolls"
-              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-0 dark:text-white"
+              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-transparent dark:text-white"
               value={forms.rolls}
               onChange={handleOnChange}
             />
