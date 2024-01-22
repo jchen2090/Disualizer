@@ -69,6 +69,7 @@ export default function GeneralStatsChart() {
             grid: {
               color: theme === "light" ? "#E5E5E5" : "#282828",
             },
+            beginAtZero: true,
           },
           x: {
             title: {
