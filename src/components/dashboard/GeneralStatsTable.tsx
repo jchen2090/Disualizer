@@ -1,5 +1,6 @@
 import { useDashboardContext } from "../../hooks/useDashboardContext";
 import { useStats } from "../../hooks/useStats";
+import { roundToMillionths } from "../../utils";
 
 export default function DiceStatsTable() {
   const { rawData } = useDashboardContext();
@@ -8,7 +9,7 @@ export default function DiceStatsTable() {
 
   const formattedData = {
     min: min,
-    mean: getMean(rawData),
+    mean: roundToMillionths(getMean(rawData)),
     median: getMedian(rawData),
     mode: getMode(rawData),
     max: max,

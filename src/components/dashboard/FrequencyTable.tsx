@@ -30,7 +30,7 @@ export default function FrequencyTable() {
         <tr>
           <th className="p-2 font-bold border-b border-r dark:border-neutral-600 dark:text-white">Frequency</th>
           {allRolls.map((roll, idx) => (
-            <td key={idx} className="p-2 text-center border-b dark:border-neutral-600 dark:text-white">
+            <td key={idx} className="p-2 text-center border-r dark:border-neutral-600 dark:text-white">
               {frequencyData[roll] || 0}
             </td>
           ))}
