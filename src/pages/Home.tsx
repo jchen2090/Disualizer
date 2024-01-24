@@ -3,7 +3,7 @@ import Die from "../components/Die";
 import { useNavigate } from "react-router-dom";
 import { useDashboardContext } from "../hooks/useDashboardContext";
 import { generateNumber } from "../utils";
-import { Roll } from "../context/DashboardContext";
+import DeleteDataButton from "../components/DeleteDataButton";
 
 type formSchema = {
   dice: number | string;
@@ -11,7 +11,7 @@ type formSchema = {
 };
 
 export default function Home() {
-  const { setIsLoading, setDiceAmount, setRollAmount, setRawData, rollAmount, diceAmount } = useDashboardContext();
+  const { setIsLoading, setDiceAmount, setRollAmount, updateRawData, rollAmount, diceAmount } = useDashboardContext();
   const [diceDisplay, setDiceDisplay] = useState<number[]>([]);
   const [forms, setForms] = useState<formSchema>({ dice: diceAmount, rolls: rollAmount });
   const navigate = useNavigate();
@@ -36,24 +36,8 @@ export default function Home() {
   }, [forms.dice, diceDisplay]);
 
   const rollDice = () => {
-    for (let i = 0; i < rollAmount; i++) {
-      const temp: Array<number> = [];
-      for (let j = 0; j < diceAmount; j++) {
-        temp.push(generateNumber());
-      }
-      const sum = temp.reduce((acc, current) => acc + current);
-      const payload: Roll = {
-        id: i,
-        roll: sum,
-        dice: temp,
-      };
-      setRawData((prev) => [...prev, payload]);
-    }
-  };
-
-  const reRoll = () => {
     setIsLoading(true);
-    rollDice();
+    updateRawData();
     navigate("/dashboard");
   };
 
@@ -125,10 +109,7 @@ export default function Home() {
           <Die number={roll} key={idx} />
         ))}
       </div>
-      <button
-        onClick={reRoll}
-        className="h-10 px-4 py-2 text-white rounded-md bg-neutral-900 hover:bg-neutral-900/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
-      >
+      <button onClick={rollDice} className="btn-primary">
         Roll Dice
       </button>
       <div className="flex flex-col gap-2">
@@ -139,12 +120,7 @@ export default function Home() {
             <button className="px-2 dark:text-white" onClick={decreaseDie}>
               -
             </button>
-            <input
-              name="dice"
-              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-transparent dark:text-white"
-              value={forms.dice}
-              onChange={handleOnChange}
-            />
+            <input name="dice" className="form-input" value={forms.dice} onChange={handleOnChange} />
             <button className="px-2 dark:text-white" onClick={increaseDie}>
               +
             </button>
@@ -156,17 +132,13 @@ export default function Home() {
             <button className="px-2 dark:text-white" onClick={decreaseRoll}>
               -
             </button>
-            <input
-              name="rolls"
-              className="h-8 px-3 py-2 text-sm text-center border-2 border-gray-100 rounded-md dark:bg-neutral-800/80 dark:border-transparent dark:text-white"
-              value={forms.rolls}
-              onChange={handleOnChange}
-            />
+            <input name="rolls" className="form-input" value={forms.rolls} onChange={handleOnChange} />
             <button className="px-2 dark:text-white" onClick={increaseRoll}>
               +
             </button>
           </div>
         </div>
+        <DeleteDataButton />
       </div>
     </main>
   );

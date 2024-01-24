@@ -1,4 +1,5 @@
 import { Dispatch, ReactNode, SetStateAction, createContext, useState } from "react";
+import { generateNumber } from "../utils";
 
 type contextProps = {
   children: ReactNode;
@@ -13,6 +14,8 @@ type contextDefaultValues = {
   setRollAmount: Dispatch<SetStateAction<number>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setDiceAmount: Dispatch<SetStateAction<number>>;
+  updateRawData: () => void;
+  resetRawData: () => void;
 };
 
 export type Roll = {
@@ -28,6 +31,31 @@ export default function DashboardContextProvider({ children }: contextProps) {
   const [diceAmount, setDiceAmount] = useState(1);
   const [rollAmount, setRollAmount] = useState(1);
 
+  /*
+    TODO: ID generation has a bug where it will reuse the same ID
+    While this is fine now since we're not using the ID property, 
+    Any computation based on ID will break until this is fixed
+  */
+  const updateRawData = () => {
+    for (let i = 0; i < rollAmount; i++) {
+      const temp: Array<number> = [];
+      for (let j = 0; j < diceAmount; j++) {
+        temp.push(generateNumber());
+      }
+      const sum = temp.reduce((acc, current) => acc + current);
+      const payload: Roll = {
+        id: i,
+        roll: sum,
+        dice: temp,
+      };
+      setRawData((prev) => [...prev, payload]);
+    }
+  };
+
+  const resetRawData = () => {
+    setRawData([]);
+  };
+
   const globalFunctions = {
     isLoading,
     rawData,
@@ -37,6 +65,8 @@ export default function DashboardContextProvider({ children }: contextProps) {
     setDiceAmount,
     setIsLoading,
     setRollAmount,
+    updateRawData,
+    resetRawData,
   };
 
   return <DashboardContext.Provider value={globalFunctions}>{children}</DashboardContext.Provider>;

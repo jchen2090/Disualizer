@@ -4,9 +4,14 @@ import FrequencyTable from "../components/dashboard/FrequencyTable";
 import { useDashboardContext } from "../hooks/useDashboardContext";
 import Loading from "./Loading";
 import GeneralStatsChart from "../components/dashboard/GeneralStatsChart";
+import { RxReload } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../hooks/useThemeContext";
 
 export default function Dashboard() {
   const { isLoading, setIsLoading } = useDashboardContext();
+  const { theme } = useThemeContext();
+  const navigate = useNavigate();
 
   setTimeout(() => {
     /**
@@ -21,7 +26,15 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col gap-16 p-6">
-      <div className="flex flex-row items-center w-full justify-evenly">
+      <div className="self-center">
+        <button className="flex items-center gap-2 px-24 btn-primary" onClick={() => navigate("/")}>
+          Reroll
+          <span>
+            <RxReload size={12} color={theme === "dark" ? "black" : "white"} />
+          </span>
+        </button>
+      </div>
+      <div className="flex flex-row items-center w-full mt-6 justify-evenly">
         <div className="w-3/5 h-96">
           <GeneralStatsChart />
         </div>
